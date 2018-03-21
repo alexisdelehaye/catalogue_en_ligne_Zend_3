@@ -2,10 +2,13 @@
 
 namespace Album;
 
+use Album\Model\Album;
+use Album\Model\Product;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+
 
 class Module implements ConfigProviderInterface
 {
@@ -13,20 +16,20 @@ class Module implements ConfigProviderInterface
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
+
     public function getServiceConfig()
     {
         return [
             'factories' => [
-                Model\AlbumTable::class => function($container) {
-                    $tableGateway = $container->get(Model\AlbumTableGateway::class);
-                    return new Model\AlbumTable($tableGateway);
+                Model\ProductTable::class => function($container) {
+                    $tableGateway = $container->get(Model\ProductTableGateway::class);
+                    return new Model\ProductTable($tableGateway);
                 },
-                Model\AlbumTableGateway::class => function ($container) {
+                Model\ProductTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album());
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Product());
+                    return new TableGateway('product', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];
@@ -36,9 +39,9 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\AlbumController::class => function($container) {
-                    return new Controller\AlbumController(
-                        $container->get(Model\AlbumTable::class)
+                Controller\ProductController::class => function($container) {
+                    return new Controller\ProductController(
+                        $container->get(Model\ProductTable::class)
                     );
                 },
             ],

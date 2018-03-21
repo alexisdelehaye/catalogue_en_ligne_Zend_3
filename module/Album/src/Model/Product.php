@@ -1,7 +1,7 @@
-<?
-
+<?php
 namespace Album\Model;
 
+use DomainException;
 
 class Product
 {
@@ -12,6 +12,7 @@ class Product
     public $prix;
 
 
+
     public function exchangeArray(array $data)
     {
         $this->id = !empty($data['id']) ? $data['id'] : null;
@@ -20,7 +21,7 @@ class Product
         $this->prix = !empty($data['prix']) ? $data['prix'] : null;
     }
 
-    public function toValues()
+    public function getArrayCopy()
     {
 
         return [
@@ -32,5 +33,6 @@ class Product
         ];
     }
 
-
 }
+
+?>
