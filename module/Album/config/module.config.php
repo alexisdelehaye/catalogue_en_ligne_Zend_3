@@ -2,6 +2,7 @@
 
 namespace Album;
 
+use Album\Model\Product;
 use Zend\Router\Http\Segment;
 
 return [

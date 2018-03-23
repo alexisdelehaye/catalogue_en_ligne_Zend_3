@@ -1,0 +1,13 @@
+<?php
+
+$title = 'détails du produit';
+$this->headTitle($title);
+
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<tr>
+    <td><?= $this->escapeHtml($details->nom) ?></td>
+    <td><?= $this->escapeHtml($details->description) ?></td>
+    <td><?= $this->escapeHtml($details->prix) ?></td>
+</tr>

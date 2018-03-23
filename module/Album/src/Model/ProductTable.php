@@ -25,7 +25,7 @@ class ProductTable {
         return $this->tableGateway->select();
     }
 
-    public function getAlbum($id)
+    public function getProduct($id)
     {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);

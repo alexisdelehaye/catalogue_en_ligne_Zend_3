@@ -31,4 +31,28 @@ class  ProductController extends AbstractActionController
         ]);
     }
 
+    public function detailsAction(){
+
+        $id = (int) $this->params()->fromRoute('id', 0);
+    /*
+        if (0 === $id) {
+            return $this->redirect()->toRoute('product', ['action' => 'index']);
+        }
+
+        // Retrieve the album with the specified id. Doing so raises
+        // an exception if the album is not found, which should result
+        // in redirecting to the landing page.
+        try {
+
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('product', ['action' => 'index']);
+        }
+
+    */
+        $product = $this->table->getProduct($id);
+        $view = new ViewModel();
+        $view->setVariable('details',$product);
+        return $view;
+
+    }
 }
