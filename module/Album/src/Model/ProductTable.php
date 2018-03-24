@@ -65,7 +65,7 @@ class ProductTable {
         $this->tableGateway->update($data, ['id' => $id]);
     }
 
-    public function deleteAlbum($id)
+    public function deleteProduct($id)
     {
         $this->tableGateway->delete(['id' => (int) $id]);
     }
