@@ -31,6 +31,16 @@ class Module implements ConfigProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Product());
                     return new TableGateway('product', $dbAdapter, null, $resultSetPrototype);
                 },
+                Model\PanierTable::class => function($container) {
+                    $tableGateway = $container->get(Model\PanierTableGateway::class);
+                    return new Model\PanierTable($tableGateway);
+                },
+                Model\PanierTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Panier());
+                    return new TableGateway('panier', $dbAdapter, null, $resultSetPrototype);
+                },
             ],
         ];
     }
@@ -41,7 +51,8 @@ class Module implements ConfigProviderInterface
             'factories' => [
                 Controller\ProductController::class => function($container) {
                     return new Controller\ProductController(
-                        $container->get(Model\ProductTable::class)
+                        $container->get(Model\ProductTable::class),
+                        $container->get(Model\PanierTable::class)
                     );
                 },
             ],

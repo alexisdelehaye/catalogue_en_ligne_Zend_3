@@ -1,0 +1,20 @@
+<?php
+$title = 'détails de votre Panier';
+$this->headTitle($title);
+
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<table class="table">
+    <tr>
+        <th>Nom</th>
+        <th>description</th>
+        <th>Prix</th>
+    </tr>
+    <?php foreach ($panier as $prod) { ?>
+        <tr>
+            <td><?= $this->escapeHtml($prod->nom) ?></td>
+            <td><?= $this->escapeHtml($prod->description) ?></td>
+            <td><?= $this->escapeHtml($prod->prix) ?></td>
+        </tr>
+    <?php } ?>
+</table>

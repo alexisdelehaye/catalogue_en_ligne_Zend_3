@@ -8,24 +8,28 @@
 
 namespace Album\Controller;
 
+use Album\Form\ProductForm;
+use Album\Model\PanierTable;
 use Album\Model\Product;
+use Album\Model\ProductTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Album\Model\ProductTable;
-
 
 class  ProductController extends AbstractActionController
 {
     private $table;
+    private $tablePanier;
 
 // Add this constructor:
-    public function __construct(ProductTable $table)
+    public function __construct(ProductTable $table, PanierTable $panierTable)
     {
         $this->table = $table;
+        $this->tablePanier = $panierTable;
     }
 
     public function indexAction()
     {
+
         return new ViewModel([
             'product' => $this->table->fetchAll(),
         ]);
@@ -34,7 +38,7 @@ class  ProductController extends AbstractActionController
     public function detailsAction(){
 
         $id = (int) $this->params()->fromRoute('id', 0);
-    /*
+
         if (0 === $id) {
             return $this->redirect()->toRoute('product', ['action' => 'index']);
         }
@@ -43,16 +47,67 @@ class  ProductController extends AbstractActionController
         // an exception if the album is not found, which should result
         // in redirecting to the landing page.
         try {
-
+            $product = $this->table->getProduct($id);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('product', ['action' => 'index']);
         }
 
-    */
-        $product = $this->table->getProduct($id);
+
         $view = new ViewModel();
         $view->setVariable('details',$product);
         return $view;
 
     }
+
+    public function AjoutPanierAction(){
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+        if (0 === $id) {
+            return $this->redirect()->toRoute('product', ['action' => 'index']);
+        }
+
+        // Retrieve the album with the specified id. Doing so raises
+        // an exception if the album is not found, which should result
+        // in redirecting to the landing page.
+        try {
+            $product = $this->table->getProduct($id);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('product', ['action' => 'index']);
+        }
+        $this->tablePanier->saveProduct($product);
+    }
+
+    public function IndexPanierAction(){
+        return new ViewModel([
+            'panier' => $this->tablePanier->fetchAll(),
+        ]);
+    }
+
+
+    public function addAction()
+    {
+        $form = new ProductForm();
+        $form->get('submit')->setValue('Add');
+
+        $request = $this->getRequest();
+
+        if (! $request->isPost()) {
+            return ['form' => $form];
+        }
+
+        $product = new Product();
+        $form->setInputFilter($product->getInputFilter());
+        $form->setData($request->getPost());
+
+        if (! $form->isValid()) {
+            return ['form' => $form];
+        }
+
+        $product->exchangeArray($form->getData());
+        $this->table->saveProduct($product);
+        return $this->redirect()->toRoute('product');
+    }
+
+
+
 }

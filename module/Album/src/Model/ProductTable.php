@@ -43,7 +43,6 @@ class ProductTable {
     public function saveProduct(Product $product)
     {
         $data = [
-            'id' => $product->id,
             'nom'  => $product->nom,
             'description'=>$product->description,
             'prix'=>$product->prix
