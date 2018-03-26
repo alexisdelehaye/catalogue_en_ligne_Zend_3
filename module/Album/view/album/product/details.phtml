@@ -11,6 +11,6 @@ $this->headTitle($title);
     <div class="card-body"><h5 class="card-title"><?= $this->escapeHtml($details->nom) ?></h5>
         <p class="card-text"><?= $this->escapeHtml($details->description) ?></p>
         <p class="card-texte"><?= $this->escapeHtml($details->prix) ?></p>
-        <p class="card-texte"><td> <button class="btn btn-primary"><a href="<?= $this->url('product', ['action' => 'AjoutPanier', 'id' => $details->id]) ?>">Ajouter Au Panier </a></button></td></p>
+        <p class="card-texte"><td><a href="<?= $this->url('product', ['action' => 'AjoutPanier', 'id' => $details->id]) ?>">Ajouter au panier</a></td></button></td></p>
     </div>
 </div>

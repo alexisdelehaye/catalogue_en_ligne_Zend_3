@@ -14,6 +14,8 @@ use Album\Model\Product;
 use Album\Model\ProductTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Form\Element;
+use Zend\Form\Form;
 
 class  ProductController extends AbstractActionController
 {
@@ -29,7 +31,6 @@ class  ProductController extends AbstractActionController
 
     public function indexAction()
     {
-
         return new ViewModel([
             'product' => $this->table->fetchAll(),
         ]);
@@ -60,7 +61,8 @@ class  ProductController extends AbstractActionController
     }
 
     public function AjoutPanierAction(){
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id', 0);;
+
 
         if (0 === $id) {
             return $this->redirect()->toRoute('product', ['action' => 'index']);
@@ -69,12 +71,18 @@ class  ProductController extends AbstractActionController
         // Retrieve the album with the specified id. Doing so raises
         // an exception if the album is not found, which should result
         // in redirecting to the landing page.
+
         try {
-            $product = $this->table->getProduct($id);
+            $product =  $this->table->getProduct($id);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('product', ['action' => 'index']);
         }
+
+
         $this->tablePanier->saveProduct($product);
+        $view = new ViewModel();
+        $view->setVariable('ajoutPanier',$product);
+        return $view;
     }
 
     public function IndexPanierAction(){

@@ -11,7 +11,7 @@ namespace Album\Model;
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
-class ProductTable {
+class PanierTable {
 
     private $tableGateway;
 
@@ -30,6 +30,7 @@ class ProductTable {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);
         $row = $rowset->current();
+
         if (! $row) {
             throw new RuntimeException(sprintf(
                 'Could not find row with identifier %d',
@@ -42,18 +43,27 @@ class ProductTable {
 
     public function saveProduct(Product $product)
     {
+       $id = (int) $product->id;
+
+        $rowset = $this->tableGateway->select(['id' => $id]);
+        $row = $rowset->current();
+
+        while ($row != null){
+            $id++;
+            $rowset = $this->tableGateway->select(['id' => $id]);
+            $row = $rowset->current();
+        }
+
         $data = [
+            'id'=> (int) $id,
             'nom'  => $product->nom,
             'description'=>$product->description,
             'prix'=>$product->prix
         ];
 
-        $id = (int) $product->id;
-
-        if ($id === 0) {
-            $this->tableGateway->insert($data);
-            return;
-        }
+                $this->tableGateway->insert($data);
+                }
+        /*
 
         if (! $this->getProduct($id)) {
             throw new RuntimeException(sprintf(
@@ -63,7 +73,9 @@ class ProductTable {
         }
 
         $this->tableGateway->update($data, ['id' => $id]);
-    }
+        */
+       // $this->tableGateway->insert($data);
+
 
     public function deleteProduct($id)
     {

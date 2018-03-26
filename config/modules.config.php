@@ -25,7 +25,9 @@ return [
     'Zend\Cache',
     'Zend\Router',
     'Zend\Validator',
-    //'ZendDeveloperTools',
+    'ZendDeveloperTools',
+    //'Zend\View\Helper\HelperInterface',
+    //'Zend\View\Helper',
     'Application',
     'Album',
 ];

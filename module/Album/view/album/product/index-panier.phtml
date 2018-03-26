@@ -17,4 +17,6 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($prod->prix) ?></td>
         </tr>
     <?php } ?>
+
 </table>
+<a href="<?= $this->url('product', ['action' => 'Index']) ?>">revenir au catalogue</a>
