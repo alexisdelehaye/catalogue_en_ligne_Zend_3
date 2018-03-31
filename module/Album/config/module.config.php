@@ -2,8 +2,11 @@
 
 namespace Album;
 
+
+
 use Album\Model\Product;
 use Zend\Router\Http\Segment;
+use Zend\Router\Http\Literal;
 
 return [
     'router' => [
@@ -22,12 +25,20 @@ return [
                     ],
                 ],
             ],
+            ],
+        ],
+
+    'view_manager' => [
+        'template_map' => array(
+            'product/PayerPanier' =>  __DIR__ .'/../view/product/PayerPanier.phtml'
+        ),
+        'template_path_stack' => [
+            'album' => __DIR__ . '/../view',
+
         ],
     ],
 
-    'view_manager' => [
-        'template_path_stack' => [
-            'album' => __DIR__ . '/../view',
-        ],
-    ],
+
+
 ];
+

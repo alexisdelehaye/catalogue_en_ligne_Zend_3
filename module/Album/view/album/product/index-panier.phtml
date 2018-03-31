@@ -1,6 +1,9 @@
 <?php
 $title = 'détails de votre Panier';
 $this->headTitle($title);
+$tot =0;
+$tot_tax = 0;
+
 
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
@@ -9,14 +12,24 @@ $this->headTitle($title);
         <th>Nom</th>
         <th>description</th>
         <th>Prix</th>
+        <th>Prix taxe incluse</th>
     </tr>
     <?php foreach ($panier as $prod) { ?>
+        <?php $taxe =($prod->prix *0.05)+ ($prod->prix*0.09975) +($prod->prix);
+        $tot += $prod->prix;
+        $tot_tax += $taxe;
+        ?>
         <tr>
             <td><?= $this->escapeHtml($prod->nom) ?></td>
             <td><?= $this->escapeHtml($prod->description) ?></td>
             <td><?= $this->escapeHtml($prod->prix) ?></td>
+            <td><?= $this->escapeHtml($taxe) ?></td>
         </tr>
     <?php } ?>
 
 </table>
-<a href="<?= $this->url('product', ['action' => 'Index']) ?>">revenir au catalogue</a>
+<br/> total de la transaction : <?= $this->escapeHtml($tot) ?>
+<br/> total taxe incluse : <?= $this->escapeHtml($tot_tax) ?>
+
+<br/><a href="<?= $this->url('product', ['action' => 'PayerPanier']) ?>">Effectuer la transaction</a>
+<br/><a href="<?= $this->url('product', ['action' => 'Index']) ?>">revenir au catalogue</a>

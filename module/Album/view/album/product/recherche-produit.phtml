@@ -1,0 +1,34 @@
+<?php
+
+$title = 'Rechercher un produit ';
+$this->headTitle($title);
+
+?>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+
+$produit = $form->get('search');
+$produit->setAttribute('class', 'form-control');
+$produit->setAttribute('placeholder', 'nom de votre produit');
+
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('product', ['action' => 'rechercheProduit']));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+?>
+    <div class="form-group">
+        <?= $this->formLabel($produit) ?>
+        <?= $this->formElement($produit) ?>
+        <?= $this->formElementErrors()->render($produit, ['class' => 'help-block']) ?>
+    </div>
+<?php
+
+echo $this->formSubmit($submit);
+echo $this->form()->closeTag();
+
+?>

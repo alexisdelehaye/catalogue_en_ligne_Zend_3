@@ -40,6 +40,20 @@ class ProductTable {
         return $row;
     }
 
+    public function getProductByName($name) {
+
+
+        $rowset = $this->tableGateway->select(['nom' => $name]);
+        $row = $rowset->current();
+        if (! $row) {
+            throw new RuntimeException(sprintf(
+                'ne peut pas trouver de produit avec ce nom',
+                $name
+            ));
+        }
+        return $row;
+    }
+
     public function saveProduct(Product $product)
     {
         $data = [

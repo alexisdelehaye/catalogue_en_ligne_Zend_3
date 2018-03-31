@@ -9,13 +9,16 @@
 namespace Album\Controller;
 
 use Album\Form\ProductForm;
+use Album\Form\searchForm;
 use Album\Model\PanierTable;
 use Album\Model\Product;
 use Album\Model\ProductTable;
+use Zend\Db\Sql\Sql;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\Db\Adapter\AdapterInterface;
 
 class  ProductController extends AbstractActionController
 {
@@ -143,6 +146,42 @@ class  ProductController extends AbstractActionController
             'product' => $this->table->getProduct($id),
         ];
     }
+
+    public function payerpanierAction(){
+        $echecTrans= rand(0,1);
+
+        $view = new ViewModel();
+        $view->setVariable('echecTrans',$echecTrans);
+        $view->setTemplate('album/product/PayerPanier');
+        return $view;
+
+}
+
+
+public function rechercheProduitAction(){
+
+    $form = new searchForm();
+    $form->get('submit')->setValue('rechercher');
+
+    $request = $this->getRequest();
+    $form->setData($request->getPost());
+
+    if (! $request->isPost()) {
+        return ['form' => $form];
+    }
+
+    $productName = (string) $form->get('search')->getValue();//$this->table->getProductByName($request);
+     $product = $this->table->getProductByName($productName);
+    $view = new ViewModel();
+    $view->setVariable('produitRechercher',$product);
+    $view->setTemplate('album/RechercheProduit/AfficheRecherche');
+    return $view;
+
+
+
+}
+
+
 
 
 

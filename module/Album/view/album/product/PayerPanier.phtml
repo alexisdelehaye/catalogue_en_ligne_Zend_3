@@ -1,0 +1,34 @@
+<?php
+$alp = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+$numTrans = array();
+for ($i =0;$i<6; $i++) {
+    $rand = rand(0,26);
+    $ra = rand(0, 9);
+    array_push($numTrans, $alp[$rand]);
+}
+
+for ($i =0;$i<9; $i++) {
+    $ra = rand(0, 9);
+    array_push($numTrans, $ra);
+}
+    if ($this->echecTrans == 0){
+        $statut = 'Nous sommes désolés, mais nous n\' pas pu finaliser votre transaction';
+    }
+    else {
+        $statut = 'Transaction effectué avec succès, merci de votre commande !';
+    }
+
+        $comma_separated = implode(",", $numTrans);
+
+
+
+$title = 'Résumé de la transaction';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<h3><?= $this->escapeHtml($statut) ?></h3>
+
+<h3>Numéro de la transaction</h3>
+<p><?php echo $comma_separated; ?></p>
+<br/><a href="<?= $this->url('product', ['action' => 'Index']) ?>">revenir au catalogue</a>

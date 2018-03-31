@@ -6,6 +6,8 @@
  * Time: 15:43
  */
 
+namespace Album\Model;
+
 class users {
 
 

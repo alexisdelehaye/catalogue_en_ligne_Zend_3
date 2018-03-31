@@ -9,6 +9,11 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Controller\AbstractActionController;
+use Album\Controller\AuthController;
+use Album\Services\AuthManager;
+
 
 class Module implements ConfigProviderInterface
 {
@@ -58,4 +63,6 @@ class Module implements ConfigProviderInterface
             ],
         ];
     }
+
+
 }
