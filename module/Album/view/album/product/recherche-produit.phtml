@@ -13,7 +13,7 @@ $produit->setAttribute('placeholder', 'nom de votre produit');
 
 
 $submit = $form->get('submit');
-$submit->setAttribute('class', 'btn btn-primary');
+$submit->setAttribute('class', 'btn btn-dark');
 
 $form->setAttribute('action', $this->url('product', ['action' => 'rechercheProduit']));
 $form->prepare();

@@ -1,0 +1,43 @@
+<?php
+
+$title = 'Catalogue des produits';
+$this->headTitle($title);
+
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<a href="<?= $this->url('product', ['action' => 'add']) ?>"><button class="btn btn-dark"><i class="far fa-plus-square"></i>Ajouter un produit</button></a>
+<a href="<?= $this->url('product', ['action' => 'IndexPanier']) ?>"><button class="btn btn-dark"><i class="fas fa-cart-arrow-down"></i>Accéder à votre panier</button></a>
+<a href="<?= $this->url('product', ['action' => 'rechercheProduit']) ?>"><button class="btn btn-dark"><i class="fas fa-search"></i>Rechercher un produit en particulier</button></a>
+<table class="table">
+    <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Détails</th>
+        <th>Modifier</th>
+		<th>Supprimer</th>
+        <th>Panier</th>
+    </tr>
+    <?php foreach ($this->paginator  as $prod) { ?>
+        <tr>
+            <td><?= $this->escapeHtml($prod->nom) ?></td>
+            <td><?= $this->escapeHtml($prod->description) ?></td>
+            <td><?= $this->escapeHtml($prod->prix) ?> €</td>
+            <td><a href="<?= $this->url('product', ['action' => 'details', 'id' => $prod->id]) ?>"><i title ="Details" class="fas fa-info-circle"></i></a></td>
+            <td><a href="<?= $this->url('product', ['action' => 'edit', 'id' => $prod->id]) ?>">Modifier</a></td>
+            <td><a href="<?= $this->url('product', ['action' => 'delete', 'id' => $prod->id]) ?>"><i title ="Supprimer" class="fas fa-trash-alt red"></i></a></td>
+            <td><a href="<?= $this->url('product', ['action' => 'AjoutPanier', 'id' => $prod->id]) ?>"><i class="fas fa-cart-plus"></i>Ajouter au panier</a></td>
+        </tr>
+    <?php } ?>
+</table>
+
+<?= $this->paginationControl(
+// The paginator object:
+    $this->paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'product']
+) ?>

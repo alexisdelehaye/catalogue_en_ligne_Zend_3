@@ -82,5 +82,10 @@ class PanierTable {
         $this->tableGateway->delete(['id' => (int) $id]);
     }
 
+    public function deleteAll()
+    {
+
+        $this->tableGateway->delete($this->tableGateway->select());
+    }
 
 }

@@ -30,7 +30,7 @@ class searchForm extends Form
             'type'  => 'text',
             'name' => 'search',
             'options' => [
-                'label' => 'Your search',
+                'label' => 'Rechercher : ',
             ],
         ]);
 

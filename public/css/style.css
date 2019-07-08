@@ -1,6 +1,73 @@
+table th, table td{
+	text-align:center;
+	border:1px solid black;
+}
+
+table th{
+color:white;
+background-image: url(/img/fond_bar.jpg);
+}
+
+table td{
+	border:1px solid black;
+}
+
+table *{
+	margin:0;
+	padding:0;
+}
+
+.btn-dark:hover{
+	color: #fff;
+	background-color: #23272b;
+    border-color: #1d2124;
+}
+
+.btn-dark{
+    color: #fff;
+	background-color: #343a40;
+	border-color: #343a40;
+}
+
+.red{
+color:#ef4239;
+}
+
+table .svg-inline--fa.fa-w-16, table .svg-inline--fa.fa-w-18, table .svg-inline--fa.fa-w-14{
+width: 24px !important;
+height: 24px !important;
+}
+
+button .svg-inline--fa.fa-w-16, button .svg-inline--fa.fa-w-18, button .svg-inline--fa.fa-w-14, .svg-inline--fa{
+width: 18px !important;
+height: 18px !important;
+margin-right:3px;
+}
+
+nav .svg-inline--fa.fa-w-18, nav .svg-inline--fa.fa-w-14, nav .svg-inline--fa.fa-w-16{
+width: 17px !important;
+height: 17px !important;
+margin-right:5px;
+}
+
+.red:hover{
+color:#ef261c;
+}
+
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+	background-image: url(/img/fond.jpg);
+	font-family:Open Sans;
+}
+
+.navbar-fixed-top{
+	background-image: url(/img/fond_bar.jpg);
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+background-color:transparent ;
+background-image: inherit;
 }
 
 .zf-green {
@@ -33,4 +100,39 @@ body {
 div.container a.navbar-brand > img {
     display: inline;
     margin-right: 4px;
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.table{
+margin:0;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+background-color: #343a40;
+border-color: #343a40;
+}
+
+.card{
+width:350px;
+margin:0 auto;
+}
+
+.card-body{
+width:250px;
+}
+
+.card-text,.card-title{
+	text-align:center;
+}
+
+hr{
+border-top: 1px solid grey;
+}
+
+i{
+margin:0;
+padding:0;
 }

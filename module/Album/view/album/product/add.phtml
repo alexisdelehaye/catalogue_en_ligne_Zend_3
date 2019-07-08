@@ -20,7 +20,7 @@ $prix->setAttribute('class', 'form-control');
 $prix->setAttribute('placeholder', 'prix du produit');
 
 $submit = $form->get('submit');
-$submit->setAttribute('class', 'btn btn-primary');
+$submit->setAttribute('class', 'btn btn-dark');
 
 $form->setAttribute('action', $this->url('product', ['action' => 'add']));
 $form->prepare();

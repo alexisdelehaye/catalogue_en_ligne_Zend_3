@@ -21,7 +21,7 @@ class ProductForm extends Form
             'name' => 'nom',
             'type' => 'text',
             'options' => [
-                'label' => 'nom',
+                'label' => 'Nom : ',
             ],
         ]);
 
@@ -29,7 +29,7 @@ class ProductForm extends Form
             'name' => 'description',
             'type' => 'text',
             'options' => [
-                'label' => 'description',
+                'label' => 'Description : ',
             ],
 
         ]);
@@ -38,7 +38,7 @@ class ProductForm extends Form
             'name'=>'prix',
         'type'=> 'number',
             'options' => [
-                'label' => 'prix',
+                'label' => 'Prix : ',
             ],
         ]);
 

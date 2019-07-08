@@ -18,8 +18,12 @@
 
         <!-- Scripts -->
         <?= $this->headScript()
+			->prependFile($this->basePath('https://use.fontawesome.com/releases/v5.0.9/js/all.js'))
+
+
             ->prependFile($this->basePath('js/bootstrap.min.js'))
             ->prependFile($this->basePath('js/jquery-2.2.4.min.js'))
+			->prependFile($this->basePath('js/fontawesome-all.min.js'))
         ?>
     </head>
     <body>
@@ -31,13 +35,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>">
-                        <img src="<?= $this->basePath('img/zf-logo.png') ?>" alt="Zend Framework <?= \Application\Module::VERSION ?>"/>&nbsp;Skeleton Application
+                    <a class="navbar-brand" href="<?php echo $this->url('product') ?>">
+                        <img src="<?= $this->basePath('img/zf-logo.png') ?>" alt="Zend Framework <?= \Application\Module::VERSION ?>"/>&nbsp;Catalogue du Laboratoire 3
                     </a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?= $this->url('home') ?>">Home</a></li>
+                        <li class="active"><a href="<?= $this->url('product') ?>"><i class="fas fa-home"></i>Accueil</a></li>
+						<li><a href="<?= $this->url('panier') ?>"><i class="fas fa-shopping-cart"></i>Panier</a></li>
+						<li><a href="<?= $this->url('login') ?>"><i class="fas fa-user"></i>Connexion</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,7 +52,7 @@
             <?= $this->content; ?>
             <hr>
             <footer>
-                <p>&copy; 2005 - <?= date('Y') ?> by Zend Technologies Ltd. All rights reserved.</p>
+                <p>&copy; 2018 - <?= date('Y') ?> by Florian Divry, Mael Jedryka et Alexis Delehaye. All rights reserved.</p>
             </footer>
         </div>
         <?= $this->inlineScript() ?>

@@ -27,7 +27,8 @@
     "zendframework/zend-servicemanager-di": "^1.0",
     "zendframework/zend-console": "^2.6",
     "zendframework/zend-authentication": "^2.5",
-    "zendframework/zend-math": "^3.0"
+    "zendframework/zend-math": "^3.0",
+    "zendframework/zend-paginator": "^2.8"
   },
   "autoload": {
     "psr-4": {

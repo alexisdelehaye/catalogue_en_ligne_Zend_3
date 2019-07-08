@@ -34,9 +34,18 @@ class  ProductController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel([
-            'product' => $this->table->fetchAll(),
-        ]);
+        $paginator = $this->table->fetchAll(true);
+
+        // Set the current page to what has been passed in query string,
+        // or to 1 if none is set, or the page is invalid:
+        $page = (int) $this->params()->fromQuery('page', 1);
+        $page = ($page < 1) ? 1 : $page;
+        $paginator->setCurrentPageNumber($page);
+
+        // Set the number of items per page to 10:
+        $paginator->setItemCountPerPage(10);
+
+        return new ViewModel(['paginator' => $paginator]);
     }
 
     public function detailsAction(){
@@ -152,6 +161,7 @@ class  ProductController extends AbstractActionController
 
         $view = new ViewModel();
         $view->setVariable('echecTrans',$echecTrans);
+        $this->tablePanier->deleteAll();
         $view->setTemplate('album/product/PayerPanier');
         return $view;
 
@@ -177,10 +187,83 @@ public function rechercheProduitAction(){
     $view->setTemplate('album/RechercheProduit/AfficheRecherche');
     return $view;
 
+}
+
+
+public function supprimerProduitPanierAction(){
+
+    $id = (int) $this->params()->fromRoute('id', 0);
+
+    if (!$id) {
+        return $this->redirect()->toRoute('product');
+    }
+
+    $request = $this->getRequest();
+
+    if ($request->isPost()) {
+        $del = $request->getPost('del', 'No');
+
+        if ($del == 'Yes') {
+            $id = (int) $request->getPost('id');
+            $this->tablePanier->deleteProduct($id);
+        }
+
+        // Redirect to list of albums
+        return $this->redirect()->toRoute('panier');
+    }
+
+    $view = new ViewModel();
+    $view->setVariable('id',$id);
+    $view->setVariable('product',$this->tablePanier->getProduct($id));
+    $view->setTemplate('album/panier/supprimer-produit-panier');
+    return $view;
+
+
 
 
 }
 
+
+    public function editAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+        if (0 === $id) {
+            return $this->redirect()->toRoute('product', ['action' => 'add']);
+        }
+
+        // Retrieve the album with the specified id. Doing so raises
+        // an exception if the album is not found, which should result
+        // in redirecting to the landing page.
+        try {
+            $product = $this->table->getProduct($id);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('product', ['action' => 'index']);
+        }
+
+        $form = new ProductForm();
+        $form->bind($product);
+        $form->get('submit')->setAttribute('value', 'Edit');
+
+        $request = $this->getRequest();
+        $viewData = ['id' => $id, 'form' => $form];
+
+        if (! $request->isPost()) {
+            return $viewData;
+        }
+
+        $form->setInputFilter($product->getInputFilter());
+        $form->setData($request->getPost());
+
+        if (! $form->isValid()) {
+            return $viewData;
+        }
+
+        $this->table->saveProduct($product);
+
+        // Redirect to album list
+        return $this->redirect()->toRoute('product', ['action' => 'index']);
+    }
 
 
 

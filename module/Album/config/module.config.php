@@ -25,6 +25,33 @@ return [
                     ],
                 ],
             ],
+            'panier' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/panier[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'indexPanier',
+                    ],
+                ],
+            ],
+			'login' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/login[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             ],
         ],
 

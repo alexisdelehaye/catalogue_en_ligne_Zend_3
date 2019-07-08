@@ -35,6 +35,36 @@ return [
                     ],
                 ],
             ],
+			'product' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/product',
+                    'defaults' => [
+                        'controller' => AlbumController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+			'panier' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/panier',
+                    'defaults' => [
+                        'controller' => AlbumController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+			'login' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller' => AlbumController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
